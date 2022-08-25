@@ -2,12 +2,21 @@ package co.miprueba.clasecontroller.dominio.dto;
 
 public class PersonaDTO {
 
+    private Integer id;
     private String nombres;
     private String apellidos;
     private Integer edad;
 
     public String getNombres() {
         return nombres;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setNombres(String nombres) {
