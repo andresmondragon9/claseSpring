@@ -35,12 +35,14 @@ public class ClaseServiceImpl implements ClaseService {
         claseDTO.setProfesorDTO(profesorService.obtenerProfresor(1));
         claseDTO.setHorario(12);
         claseDTO.setNumeroSalon(101);
+        claseDTO.setAlumnoDTOS(alumnoService.listaAlumnos(1));
 
         ClaseDTO claseDTODos = new ClaseDTO();
         claseDTODos.setMateriaDTO(materiaService.obtenerMateria(2));
         claseDTODos.setProfesorDTO(profesorService.obtenerProfresor(1));
         claseDTODos.setHorario(8);
         claseDTODos.setNumeroSalon(903);
+        claseDTODos.setAlumnoDTOS(alumnoService.listaAlumnos(2));
 
         clasesDTO.add(claseDTO);
         clasesDTO.add(claseDTODos);
@@ -48,7 +50,6 @@ public class ClaseServiceImpl implements ClaseService {
 
     @Override
     public List<ClaseDTO> listarClases() {
-        this.iniciarLista();
         return clasesDTO;
     }
 }

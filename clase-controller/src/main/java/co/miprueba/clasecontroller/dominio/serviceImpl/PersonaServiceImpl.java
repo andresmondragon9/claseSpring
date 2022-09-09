@@ -20,12 +20,12 @@ public class PersonaServiceImpl implements PersonaService {
 
     @PostConstruct
     public void iniciarLista(){
-        personaDto.setId(1);
+        personaDto.setIdPersona(1);
         personaDto.setNombres("pedro");
         personaDto.setApellidos("perez");
         personaDto.setEdad(35);
 
-        personaDtoDos.setId(2);
+        personaDtoDos.setIdPersona(2);
         personaDtoDos.setNombres("juan");
         personaDtoDos.setApellidos("gutierrez");
         personaDtoDos.setEdad(35);
@@ -54,7 +54,7 @@ public class PersonaServiceImpl implements PersonaService {
     public ResponsePersonaDTO crearPersona(PersonaDTO personaDTORequest) {
         ResponsePersonaDTO responsePersonaDTO = new ResponsePersonaDTO();
         responsePersonaDTO.setMensaje("ya existe persona");
-        PersonaDTO personaDTOBuscada = buscarPersona(personaDTORequest.getId());
+        PersonaDTO personaDTOBuscada = buscarPersona(personaDTORequest.getIdPersona());
         if(personaDTOBuscada == null){
             lista.add(personaDTORequest);
             responsePersonaDTO.setPersonaDTO(personaDTORequest);
@@ -66,7 +66,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public void actualizarPersona(PersonaDTO personaDTORequest) {
         for(PersonaDTO personaDTO : lista){
-            if(personaDTO.getId() == personaDTORequest.getId()){
+            if(personaDTO.getIdPersona() == personaDTORequest.getIdPersona()){
                 personaDTO.setEdad(personaDTORequest.getEdad());
                 personaDTO.setApellidos(personaDTORequest.getApellidos());
                 personaDTO.setNombres(personaDTORequest.getNombres());
@@ -78,7 +78,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public void eliminarPersona(Integer id) {
         for(PersonaDTO personaDTO : lista){
-            if(personaDTO.getId() == id){
+            if(personaDTO.getIdPersona() == id){
                 lista.remove(personaDTO);
                 break;
             }
@@ -88,7 +88,7 @@ public class PersonaServiceImpl implements PersonaService {
     public PersonaDTO buscarPersona(Integer id){
         PersonaDTO personaDTOencontrada = null;
         for(PersonaDTO personaDTO : lista){
-            if(personaDTO.getId() == id){
+            if(personaDTO.getIdPersona() == id){
                 personaDTOencontrada = personaDTO;
             }
         }
