@@ -7,4 +7,6 @@ import java.util.List;
 public interface AlumnoService {
 
     List<AlumnoDTO> listaAlumnos(Integer idMateria);
+
+    AlumnoDTO crearAlumno(AlumnoDTO alumnoDTO);
 }

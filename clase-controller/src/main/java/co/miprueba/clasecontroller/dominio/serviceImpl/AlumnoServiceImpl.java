@@ -5,6 +5,11 @@ import co.miprueba.clasecontroller.dominio.dto.ClaseDTO;
 import co.miprueba.clasecontroller.dominio.dto.MateriaDTO;
 import co.miprueba.clasecontroller.dominio.service.AlumnoService;
 import co.miprueba.clasecontroller.dominio.service.MateriaService;
+import co.miprueba.clasecontroller.dominio.service.PersonaService;
+import co.miprueba.clasecontroller.persistencia.dao.AlumnoDao;
+import co.miprueba.clasecontroller.persistencia.entity.Alumno;
+import co.miprueba.clasecontroller.persistencia.repository.AlumnoRepository;
+import co.miprueba.clasecontroller.persistencia.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,42 +23,36 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Autowired
     private MateriaService materiaService;
-    private List<AlumnoDTO> listaAlumnos = new ArrayList<>();
 
-    @PostConstruct
-    public void iniciarLista(){
-        AlumnoDTO alumnoDTO = new AlumnoDTO();
-        alumnoDTO.setIdAlumno(1);
-        alumnoDTO.setNombres("arnulfo");
-        alumnoDTO.setApellidos("rodriguez");
+    @Autowired
+    private AlumnoRepository alumnoRepository;
 
-        alumnoDTO.setMateriaDTOS(Arrays.asList(materiaService.obtenerMateria(1)));
+    @Autowired
+    private PersonaRepository personaRepository;
 
-        AlumnoDTO alumnoDTODos = new AlumnoDTO();
-        alumnoDTODos.setIdAlumno(2);
-        alumnoDTODos.setNombres("laura");
-        alumnoDTODos.setApellidos("reyez");
-        alumnoDTODos.setMateriaDTOS(Arrays.asList(materiaService.obtenerMateria(2)));
+    @Autowired
+    private AlumnoDao alumnoDao;
 
-        AlumnoDTO alumnoDTOTres = new AlumnoDTO();
-        alumnoDTOTres.setIdAlumno(2);
-        alumnoDTOTres.setNombres("juan");
-        alumnoDTOTres.setApellidos("torrez");
-        alumnoDTOTres.setMateriaDTOS(Arrays.asList(materiaService.obtenerMateria(2)));
-
-        listaAlumnos.add(alumnoDTO);
-        listaAlumnos.add(alumnoDTODos);
-    }
     @Override
     public List<AlumnoDTO> listaAlumnos(Integer idMateria) {
         List<AlumnoDTO> alumnoDTOSRes = new ArrayList<>();
-        for(AlumnoDTO alumnoDTO : listaAlumnos){
+        /*for(AlumnoDTO alumnoDTO : listaAlumnos){
             for(MateriaDTO materiaDTO : alumnoDTO.getMateriaDTOS()){
                 if(materiaDTO.getIdMateria() == idMateria){
                     alumnoDTOSRes.add(alumnoDTO);
                 }
             }
-        }
+        }*/
         return alumnoDTOSRes;
+    }
+
+    @Override
+    public AlumnoDTO crearAlumno(AlumnoDTO alumnoDTO) {
+        alumnoDTO.getPersonaDTO().setIdPersona(null);
+        alumnoDTO.setIdAlumno(null);
+        Alumno alumno = alumnoDao.alumnoDtoToAlumno(alumnoDTO);
+        personaRepository.save(alumno.getPersona());
+        alumnoRepository.save(alumno);
+        return alumnoDao.alumnoToAlumnoDto(alumno);
     }
 }

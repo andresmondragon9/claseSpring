@@ -12,7 +12,7 @@ public class PersonaDao {
         personaDTO.setIdPersona(persona.getIdPersona());
         personaDTO.setEdad(persona.getEdad());
         personaDTO.setNombres(persona.getNombres());
-        personaDTO.setApellidos(personaDTO.getApellidos());
+        personaDTO.setApellidos(persona.getApellidos());
         return personaDTO;
     }
 

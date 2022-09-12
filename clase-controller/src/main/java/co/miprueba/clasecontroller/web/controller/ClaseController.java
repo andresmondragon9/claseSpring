@@ -26,4 +26,6 @@ public class ClaseController {
     public ResponseEntity<List<ClaseDTO>> all(){
         return new ResponseEntity<>(claseService.listarClases(), HttpStatus.OK);
     }
+
+
 }
